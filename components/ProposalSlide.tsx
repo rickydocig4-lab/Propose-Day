@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
 import { KittyIllustration } from './KittyIllustration';
@@ -54,7 +55,7 @@ export const ProposalSlide: React.FC = () => {
               YAY! Best Day Ever! 💖
             </h2>
             <p className="text-xl md:text-2xl text-gray-700 leading-relaxed italic">
-              I promise to always keep the kittens happy, the coffee warm, and your heart full of love. 
+              I promise to love you more with every heartbeat, today and for all the forevers to come.
             </p>
           </div>
           
