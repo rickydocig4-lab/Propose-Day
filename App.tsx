@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { HeroSlide } from './components/HeroSlide';
-import { FavoritePersonSlide } from './components/FavoritePersonSlide';
-import { FeelingsShapeSlide } from './components/FeelingsShapeSlide';
-import { AlmostQuestionSlide } from './components/AlmostQuestionSlide';
-import { ProposalSlide } from './components/ProposalSlide';
-import { MusicControl } from './components/MusicControl';
+import { HeroSlide } from './components/HeroSlide.tsx';
+import { FavoritePersonSlide } from './components/FavoritePersonSlide.tsx';
+import { FeelingsShapeSlide } from './components/FeelingsShapeSlide.tsx';
+import { AlmostQuestionSlide } from './components/AlmostQuestionSlide.tsx';
+import { ProposalSlide } from './components/ProposalSlide.tsx';
+import { MusicControl } from './components/MusicControl.tsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const App: React.FC = () => {
@@ -38,7 +38,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
@@ -62,74 +61,33 @@ const App: React.FC = () => {
       <MusicControl isPlaying={isPlaying} onToggle={handleToggleMusic} />
 
       <AnimatePresence mode="wait">
-        {currentSlide === 0 && (
-          <motion.div
-            key="slide0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.8 }}
-            className="h-full w-full"
-          >
-            <HeroSlide onNext={nextSlide} />
-          </motion.div>
-        )}
-        {currentSlide === 1 && (
-          <motion.div
-            key="slide1"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.8 }}
-            className="h-full w-full"
-          >
-            <FavoritePersonSlide onNext={nextSlide} onPrev={prevSlide} />
-          </motion.div>
-        )}
-        {currentSlide === 2 && (
-          <motion.div
-            key="slide2"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.8 }}
-            className="h-full w-full"
-          >
-            <FeelingsShapeSlide onNext={nextSlide} onPrev={prevSlide} />
-          </motion.div>
-        )}
-        {currentSlide === 3 && (
-          <motion.div
-            key="slide3"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.8 }}
-            className="h-full w-full"
-          >
-            <AlmostQuestionSlide onNext={nextSlide} onPrev={prevSlide} />
-          </motion.div>
-        )}
-        {currentSlide === 4 && (
-          <motion.div
-            key="slide4"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="h-full w-full"
-          >
-            <ProposalSlide />
-          </motion.div>
-        )}
+        <motion.div
+          key={currentSlide}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="h-full w-full"
+        >
+          {currentSlide === 0 && <HeroSlide onNext={nextSlide} />}
+          {currentSlide === 1 && <FavoritePersonSlide onNext={nextSlide} onPrev={prevSlide} />}
+          {currentSlide === 2 && <FeelingsShapeSlide onNext={nextSlide} onPrev={prevSlide} />}
+          {currentSlide === 3 && <AlmostQuestionSlide onNext={nextSlide} onPrev={prevSlide} />}
+          {currentSlide === 4 && <ProposalSlide />}
+        </motion.div>
       </AnimatePresence>
 
-      {/* Progress Indicator */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-2 z-50">
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 flex gap-3 z-50">
         {Array.from({ length: totalSlides }).map((_, i) => (
-          <div 
+          <motion.div 
             key={i} 
-            className={`h-1.5 rounded-full transition-all duration-500 ${currentSlide === i ? 'w-8 bg-pink-500' : 'w-4 bg-pink-200'}`}
+            initial={false}
+            animate={{ 
+              width: currentSlide === i ? 32 : 12,
+              backgroundColor: currentSlide === i ? '#ec4899' : '#fbcfe8',
+              opacity: currentSlide === i ? 1 : 0.6
+            }}
+            className="h-2 rounded-full shadow-sm"
           />
         ))}
       </div>

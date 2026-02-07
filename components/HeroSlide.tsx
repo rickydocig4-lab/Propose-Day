@@ -1,93 +1,136 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, ChevronDown } from 'lucide-react';
-import { KittyIllustration } from './KittyIllustration';
+import { Heart, ChevronDown, Sparkles } from 'lucide-react';
+import { KittyIllustration } from './KittyIllustration.tsx';
 
 interface HeroSlideProps {
   onNext: () => void;
 }
 
 export const HeroSlide: React.FC<HeroSlideProps> = ({ onNext }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  };
+
   return (
     <div className="relative h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-[#ffe4e1] via-[#fff0f5] to-[#e6e6fa] overflow-hidden">
       
       {/* Background Heartbeat */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[600px] h-[600px] bg-pink-300 rounded-full blur-3xl animate-heartbeat opacity-20"></div>
+        <div className="w-[800px] h-[800px] bg-pink-300 rounded-full blur-[120px] animate-heartbeat opacity-20"></div>
       </div>
 
       {/* Floating Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            initial={{ y: '110vh', x: `${Math.random() * 100}vw`, rotate: 0 }}
-            animate={{ y: '-10vh', rotate: 360 }}
-            transition={{ duration: 15 + Math.random() * 10, repeat: Infinity, ease: 'linear', delay: Math.random() * 10 }}
-            className="absolute opacity-40 text-pink-400"
+            initial={{ y: '110vh', x: `${Math.random() * 100}vw`, rotate: 0, scale: 0.5 }}
+            animate={{ 
+              y: '-10vh', 
+              rotate: 360, 
+              x: [`${Math.random() * 100}vw`, `${Math.random() * 100}vw`],
+              scale: [0.5, 1, 0.5] 
+            }}
+            transition={{ 
+              duration: 10 + Math.random() * 10, 
+              repeat: Infinity, 
+              ease: 'linear', 
+              delay: Math.random() * 5 
+            }}
+            className="absolute opacity-30 text-pink-400"
           >
-            <Heart size={16 + Math.random() * 24} fill="currentColor" />
+            {i % 2 === 0 ? <Heart size={20 + Math.random() * 30} fill="currentColor" /> : <Sparkles size={15 + Math.random() * 20} />}
           </motion.div>
         ))}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-2xl">
+      {/* Content Card */}
+      <motion.div 
+        className="relative z-10 text-center px-6 max-w-3xl"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1 }}
+          variants={itemVariants}
+          className="mb-8"
         >
-          <KittyIllustration type="peek" className="mx-auto mb-6 w-32 h-32" />
+          <div className="relative inline-block">
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+            >
+              <KittyIllustration type="peek" className="mx-auto w-36 h-36 shadow-2xl border-4 border-white bg-white/50 backdrop-blur-sm" />
+            </motion.div>
+            <motion.div 
+              className="absolute -top-2 -right-2 text-pink-500"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+            >
+              <Heart fill="currentColor" size={24} />
+            </motion.div>
+          </div>
         </motion.div>
         
         <motion.h1 
-          className="text-4xl md:text-6xl font-bold text-pink-600 mb-4"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-500 mb-6 font-handwritten"
+          variants={itemVariants}
         >
           Hey Smriti 💕
         </motion.h1>
         
         <motion.p 
-          className="text-xl md:text-2xl font-light text-gray-700 italic mb-12"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          className="text-2xl md:text-3xl font-light text-gray-700 italic mb-10 leading-relaxed"
+          variants={itemVariants}
         >
-          This is not just a website… <br className="hidden md:block"/> it’s a little piece of my heart.
+          Something special awaits... <br/> and it all starts right here.
         </motion.p>
 
         <motion.div
-          className="bg-white/40 backdrop-blur-sm px-6 py-2 rounded-full inline-block mb-16 shadow-sm border border-pink-100"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          className="bg-white/40 backdrop-blur-md px-8 py-4 rounded-3xl inline-block mb-12 shadow-xl border border-white/60"
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
         >
-          <span className="text-sm font-medium text-pink-500 italic">
-            "Every moment with you is a gift I cherish."
-          </span>
+          <p className="text-lg font-medium text-pink-600 italic">
+            "Every heartbeat tells a story of you."
+          </p>
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Swipe/Scroll Hint */}
+      {/* Action Button */}
       <motion.button
         onClick={onNext}
-        className="absolute bottom-12 flex flex-col items-center gap-2 group cursor-pointer"
+        className="absolute bottom-10 flex flex-col items-center gap-3 group cursor-pointer z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
+        whileHover={{ y: 5 }}
       >
-        <span className="text-pink-400 font-medium tracking-widest text-xs uppercase animate-pulse">Swipe to Continue</span>
+        <span className="text-pink-500 font-bold tracking-[0.2em] text-sm uppercase">Tap to Begin</span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="p-3 bg-white/80 rounded-full shadow-lg text-pink-500 border border-pink-100 group-hover:bg-pink-500 group-hover:text-white transition-all"
         >
-          <ChevronDown className="text-pink-400 group-hover:text-pink-600 transition-colors" />
+          <ChevronDown size={28} />
         </motion.div>
       </motion.button>
+
+      {/* Subtle bottom gradient for depth */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white/40 to-transparent pointer-events-none"></div>
     </div>
   );
 };
