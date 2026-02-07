@@ -50,7 +50,7 @@ const App: React.FC = () => {
   }, [currentSlide]);
 
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[#fff5f8] text-gray-800 selection:bg-pink-200">
+    <div className="relative h-screen w-screen overflow-hidden bg-[#fff5f8] text-gray-800 selection:bg-pink-200">
       <audio 
         ref={audioRef}
         loop 
@@ -62,10 +62,10 @@ const App: React.FC = () => {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
           className="h-full w-full"
         >
           {currentSlide === 0 && <HeroSlide onNext={nextSlide} />}
