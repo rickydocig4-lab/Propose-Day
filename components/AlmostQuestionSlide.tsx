@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, ChevronLeft } from 'lucide-react';
-import { KittyIllustration } from './KittyIllustration';
 
 interface AlmostQuestionSlideProps {
   onNext: () => void;
@@ -19,47 +17,30 @@ export const AlmostQuestionSlide: React.FC<AlmostQuestionSlideProps> = ({ onNext
   }, [lineIndex]);
 
   return (
-    <div className="h-full w-full bg-[#fdf2f2] flex flex-col items-center justify-center relative p-8">
+    <div className="h-full w-full bg-[#fdf2f2] flex flex-col items-center justify-center relative p-8 fade-in">
       <div className="max-w-3xl text-center space-y-16">
         <div className="min-h-[12rem] flex flex-col items-center justify-center">
-          <AnimatePresence mode="wait">
-            {lineIndex === 0 ? (
-              <motion.p
-                key="line1"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                className="text-3xl md:text-5xl font-light text-pink-400 italic mb-8 px-4"
-              >
-                “I thought of a thousand ways to say this…”
-              </motion.p>
-            ) : (
-              <motion.p
-                key="line2"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-5xl md:text-7xl font-handwritten font-bold text-pink-600 px-4"
-              >
-                “…but my heart keeps choosing you.”
-              </motion.p>
-            )}
-          </AnimatePresence>
+          {lineIndex === 0 ? (
+            <p className="text-3xl md:text-5xl font-light text-pink-400 italic mb-8 px-4 fade-in">
+              “I thought of a thousand ways to say this…”
+            </p>
+          ) : (
+            <p className="text-5xl md:text-7xl font-handwritten font-bold text-pink-600 px-4 fade-in">
+              “…but my heart keeps choosing you.”
+            </p>
+          )}
         </div>
 
         {lineIndex >= 1 && (
-          <motion.button
+          <button
             onClick={onNext}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative inline-flex items-center justify-center px-12 py-6 bg-pink-500 rounded-full shadow-2xl shadow-pink-200 text-white font-bold text-2xl transition-all"
+            className="group relative inline-flex items-center justify-center px-12 py-6 bg-pink-500 rounded-full shadow-2xl shadow-pink-200 text-white font-bold text-2xl transition-all hover:scale-105 active:scale-95 fade-in"
           >
             <div className="absolute inset-0 bg-pink-400 rounded-full blur-2xl opacity-40 group-hover:opacity-100 animate-pulse pointer-events-none"></div>
             <span className="relative flex items-center gap-4">
               I have one more thing to ask... <Heart fill="white" className="animate-bounce" size={28} />
             </span>
-          </motion.button>
+          </button>
         )}
       </div>
 

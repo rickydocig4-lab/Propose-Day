@@ -5,7 +5,6 @@ import { FeelingsShapeSlide } from './components/FeelingsShapeSlide';
 import { AlmostQuestionSlide } from './components/AlmostQuestionSlide';
 import { ProposalSlide } from './components/ProposalSlide';
 import { MusicControl } from './components/MusicControl';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const App: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -49,6 +48,17 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentSlide]);
 
+  const renderSlide = () => {
+    switch (currentSlide) {
+      case 0: return <HeroSlide onNext={nextSlide} />;
+      case 1: return <FavoritePersonSlide onNext={nextSlide} onPrev={prevSlide} />;
+      case 2: return <FeelingsShapeSlide onNext={nextSlide} onPrev={prevSlide} />;
+      case 3: return <AlmostQuestionSlide onNext={nextSlide} onPrev={prevSlide} />;
+      case 4: return <ProposalSlide />;
+      default: return null;
+    }
+  };
+
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-[#fff5f8] text-gray-800 selection:bg-pink-200">
       <audio 
@@ -59,34 +69,17 @@ const App: React.FC = () => {
       
       <MusicControl isPlaying={isPlaying} onToggle={handleToggleMusic} />
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="h-full w-full"
-        >
-          {currentSlide === 0 && <HeroSlide onNext={nextSlide} />}
-          {currentSlide === 1 && <FavoritePersonSlide onNext={nextSlide} onPrev={prevSlide} />}
-          {currentSlide === 2 && <FeelingsShapeSlide onNext={nextSlide} onPrev={prevSlide} />}
-          {currentSlide === 3 && <AlmostQuestionSlide onNext={nextSlide} onPrev={prevSlide} />}
-          {currentSlide === 4 && <ProposalSlide />}
-        </motion.div>
-      </AnimatePresence>
+      <div key={currentSlide} className="h-full w-full fade-in">
+        {renderSlide()}
+      </div>
 
       <div className="absolute top-6 left-1/2 -translate-x-1/2 flex gap-3 z-50">
         {Array.from({ length: totalSlides }).map((_, i) => (
-          <motion.div 
+          <div 
             key={i} 
-            initial={false}
-            animate={{ 
-              width: currentSlide === i ? 32 : 12,
-              backgroundColor: currentSlide === i ? '#ec4899' : '#fbcfe8',
-              opacity: currentSlide === i ? 1 : 0.6
-            }}
-            className="h-2 rounded-full shadow-sm"
+            className={`h-2 rounded-full shadow-sm transition-all duration-300 ${
+              currentSlide === i ? 'w-8 bg-pink-500 opacity-100' : 'w-3 bg-pink-200 opacity-60'
+            }`}
           />
         ))}
       </div>

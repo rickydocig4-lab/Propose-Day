@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { KittyIllustration } from './KittyIllustration';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
@@ -9,33 +8,24 @@ interface FavoritePersonSlideProps {
 }
 
 const cards = [
-  { text: "You make ordinary days feel special", emoji: "✨", delay: 0.2, type: 'hug' as const },
-  { text: "Your smile fixes things I never talk about", emoji: "🌸", delay: 0.5, type: 'cute' as const },
-  { text: "Somehow, you just feel like home", emoji: "🏠", delay: 0.8, type: 'sit' as const },
+  { text: "You make ordinary days feel special", emoji: "✨", type: 'hug' as const },
+  { text: "Your smile fixes things I never talk about", emoji: "🌸", type: 'cute' as const },
+  { text: "Somehow, you just feel like home", emoji: "🏠", type: 'sit' as const },
 ];
 
 export const FavoritePersonSlide: React.FC<FavoritePersonSlideProps> = ({ onNext, onPrev }) => {
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center bg-[#fffafa] p-6 overflow-y-auto">
-      <motion.div 
-        className="text-center mb-12"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+    <div className="h-full w-full flex flex-col items-center justify-center bg-[#fffafa] p-6 overflow-y-auto fade-in">
+      <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-handwritten text-pink-600 mb-2">Why You’re My Favorite Person</h2>
         <div className="h-1 w-24 bg-pink-200 mx-auto rounded-full"></div>
-      </motion.div>
+      </div>
 
       <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-3 gap-8">
         {cards.map((card, idx) => (
-          <motion.div
+          <div
             key={idx}
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: card.delay, duration: 0.8, type: 'spring' }}
-            whileHover={{ y: -10 }}
-            className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-pink-100 flex flex-col items-center text-center border-b-8 border-pink-200 relative overflow-hidden group"
+            className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-pink-100 flex flex-col items-center text-center border-b-8 border-pink-200 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300"
           >
             <div className="absolute -top-2 -right-2 p-6 text-4xl opacity-10 group-hover:opacity-100 transition-opacity duration-500 rotate-12 group-hover:rotate-0">
               {card.emoji}
@@ -47,7 +37,7 @@ export const FavoritePersonSlide: React.FC<FavoritePersonSlideProps> = ({ onNext
             <p className="text-2xl font-handwritten text-gray-700 leading-relaxed group-hover:text-pink-600 transition-colors">
               {card.text}
             </p>
-          </motion.div>
+          </div>
         ))}
       </div>
 

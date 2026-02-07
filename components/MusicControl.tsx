@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { Music, Music2 } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 interface MusicControlProps {
   isPlaying: boolean;
@@ -10,11 +8,9 @@ interface MusicControlProps {
 
 export const MusicControl: React.FC<MusicControlProps> = ({ isPlaying, onToggle }) => {
   return (
-    <motion.button
+    <button
       onClick={onToggle}
-      className="fixed bottom-6 left-6 z-[100] p-4 bg-white/30 backdrop-blur-md rounded-full shadow-lg border border-white/40 group overflow-hidden"
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
+      className="fixed bottom-6 left-6 z-[100] p-4 bg-white/30 backdrop-blur-md rounded-full shadow-lg border border-white/40 group overflow-hidden transition-all hover:scale-110 active:scale-90"
     >
       <div className="absolute inset-0 bg-pink-100/30 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
       <div className="relative flex items-center gap-2">
@@ -27,6 +23,6 @@ export const MusicControl: React.FC<MusicControlProps> = ({ isPlaying, onToggle 
           {isPlaying ? "Music On" : "Music Off"}
         </span>
       </div>
-    </motion.button>
+    </button>
   );
 };
