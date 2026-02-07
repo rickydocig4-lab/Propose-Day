@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, ChevronDown, Sparkles } from 'lucide-react';
-import { KittyIllustration } from './KittyIllustration.tsx';
+import { KittyIllustration } from './KittyIllustration';
 
 interface HeroSlideProps {
   onNext: () => void;
@@ -26,13 +25,10 @@ export const HeroSlide: React.FC<HeroSlideProps> = ({ onNext }) => {
 
   return (
     <div className="relative h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-[#ffe4e1] via-[#fff0f5] to-[#e6e6fa] overflow-hidden">
-      
-      {/* Background Heartbeat */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[800px] h-[800px] bg-pink-300 rounded-full blur-[120px] animate-heartbeat opacity-20"></div>
       </div>
 
-      {/* Floating Elements */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(15)].map((_, i) => (
           <motion.div
@@ -57,17 +53,13 @@ export const HeroSlide: React.FC<HeroSlideProps> = ({ onNext }) => {
         ))}
       </div>
 
-      {/* Content Card */}
       <motion.div 
         className="relative z-10 text-center px-6 max-w-3xl"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.div
-          variants={itemVariants}
-          className="mb-8"
-        >
+        <motion.div variants={itemVariants} className="mb-8">
           <div className="relative inline-block">
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
@@ -110,7 +102,6 @@ export const HeroSlide: React.FC<HeroSlideProps> = ({ onNext }) => {
         </motion.div>
       </motion.div>
 
-      {/* Action Button */}
       <motion.button
         onClick={onNext}
         className="absolute bottom-10 flex flex-col items-center gap-3 group cursor-pointer z-20"
@@ -128,9 +119,6 @@ export const HeroSlide: React.FC<HeroSlideProps> = ({ onNext }) => {
           <ChevronDown size={28} />
         </motion.div>
       </motion.button>
-
-      {/* Subtle bottom gradient for depth */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white/40 to-transparent pointer-events-none"></div>
     </div>
   );
 };

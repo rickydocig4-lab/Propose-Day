@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-import { KittyIllustration } from './KittyIllustration.tsx';
+import { KittyIllustration } from './KittyIllustration';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 interface FavoritePersonSlideProps {
@@ -35,7 +34,7 @@ export const FavoritePersonSlide: React.FC<FavoritePersonSlideProps> = ({ onNext
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: card.delay, duration: 0.8, type: 'spring' }}
-            whileHover={{ y: -10, transition: { duration: 0.2 } }}
+            whileHover={{ y: -10 }}
             className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-pink-100 flex flex-col items-center text-center border-b-8 border-pink-200 relative overflow-hidden group"
           >
             <div className="absolute -top-2 -right-2 p-6 text-4xl opacity-10 group-hover:opacity-100 transition-opacity duration-500 rotate-12 group-hover:rotate-0">
@@ -50,12 +49,6 @@ export const FavoritePersonSlide: React.FC<FavoritePersonSlideProps> = ({ onNext
             </p>
           </motion.div>
         ))}
-      </div>
-
-      <div className="absolute bottom-10 right-10 text-right hidden md:block">
-        <p className="text-sm font-medium text-pink-300 italic">
-          "You are my favorite thought."
-        </p>
       </div>
 
       <div className="mt-16 flex justify-center gap-12 z-20">

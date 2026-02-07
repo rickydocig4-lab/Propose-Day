@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, Stars } from 'lucide-react';
-import { KittyIllustration } from './KittyIllustration.tsx';
+import { Heart, Sparkles } from 'lucide-react';
+import { KittyIllustration } from './KittyIllustration';
 
 export const ProposalSlide: React.FC = () => {
   const [answered, setAnswered] = useState(false);
@@ -13,8 +12,6 @@ export const ProposalSlide: React.FC = () => {
 
   return (
     <div className="h-full w-full bg-gradient-to-t from-[#fff0f5] to-[#fffafa] flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      
-      {/* Falling Petals */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(30)].map((_, i) => (
           <motion.div
@@ -56,16 +53,13 @@ export const ProposalSlide: React.FC = () => {
               </p>
             </div>
 
-            <div className="flex flex-col md:row gap-8 justify-center items-center">
+            <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
               <motion.button
                 onClick={handleYes}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full md:w-auto px-16 py-5 bg-pink-500 text-white rounded-full text-3xl font-bold shadow-[0_15px_30px_rgba(236,72,153,0.3)] hover:bg-pink-600 transition-all flex items-center justify-center gap-4 relative group"
+                className="w-full md:w-auto px-16 py-5 bg-pink-500 text-white rounded-full text-3xl font-bold shadow-xl hover:bg-pink-600 transition-all flex items-center justify-center gap-4 relative group"
               >
-                <div className="absolute -top-3 -right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Sparkles className="text-yellow-400 fill-yellow-400" size={32} />
-                </div>
                 Yes! 💕
               </motion.button>
               
@@ -78,12 +72,6 @@ export const ProposalSlide: React.FC = () => {
                 Absolutely Yes! 😼💞
               </motion.button>
             </div>
-
-            <div className="opacity-40 pt-16">
-              <p className="text-lg font-medium text-pink-400 italic font-handwritten">
-                "Forever starts with one word..."
-              </p>
-            </div>
           </motion.div>
         ) : (
           <motion.div 
@@ -92,31 +80,12 @@ export const ProposalSlide: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center z-10 space-y-10 p-12 bg-white/80 backdrop-blur-lg rounded-[4rem] border-2 border-pink-200 shadow-2xl relative max-w-lg"
           >
-            {/* Celebration Message */}
-            <motion.div
-              initial={{ opacity: 0, y: -40 }}
-              animate={{ opacity: 1, y: -20 }}
-              transition={{ delay: 0.5, type: 'spring' }}
-              className="absolute -top-12 left-1/2 -translate-x-1/2 w-full text-center"
-            >
-              <span className="bg-pink-600 text-white px-8 py-3 rounded-full font-bold shadow-xl text-xl animate-bounce inline-block">
-                She said yes! 💍✨
-              </span>
-            </motion.div>
-
             <motion.div
               animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.1, 1] }}
               transition={{ repeat: Infinity, duration: 2.5 }}
               className="relative"
             >
                <KittyIllustration type="hug" className="w-56 h-56 mx-auto border-8 border-pink-100 bg-white" />
-               <motion.div 
-                 className="absolute -top-6 -right-6 text-7xl"
-                 animate={{ scale: [1, 1.2, 1], rotate: [0, 15, 0] }}
-                 transition={{ repeat: Infinity, duration: 1.5 }}
-               >
-                 💍
-               </motion.div>
             </motion.div>
 
             <div className="space-y-4">
@@ -128,12 +97,6 @@ export const ProposalSlide: React.FC = () => {
               </p>
             </div>
             
-            <div className="flex justify-center gap-4 py-4">
-               <KittyIllustration type="sit" className="w-16 h-16 shadow-md" />
-               <KittyIllustration type="cute" className="w-16 h-16 shadow-md" />
-               <KittyIllustration type="peek" className="w-16 h-16 shadow-md" />
-            </div>
-
             <motion.div 
               className="inline-block px-10 py-4 bg-pink-100 rounded-2xl text-pink-600 font-bold border border-pink-200 text-2xl shadow-inner font-handwritten"
               animate={{ scale: [1, 1.05, 1] }}
@@ -145,7 +108,6 @@ export const ProposalSlide: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Confetti & Hearts on Success */}
       {answered && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {[...Array(50)].map((_, i) => (
@@ -159,7 +121,6 @@ export const ProposalSlide: React.FC = () => {
               }}
               animate={{ 
                 y: '-20vh', 
-                x: `${(Math.random() - 0.5) * 60 + 50}vw`,
                 opacity: 0,
                 rotate: 360
               }}
@@ -168,7 +129,7 @@ export const ProposalSlide: React.FC = () => {
                 ease: "easeOut",
                 delay: Math.random() * 3
               }}
-              className={`absolute ${i % 3 === 0 ? 'text-pink-500' : i % 3 === 1 ? 'text-red-400' : 'text-rose-300'}`}
+              className="absolute text-pink-500"
             >
               <Heart fill="currentColor" size={20 + Math.random() * 40} />
             </motion.div>

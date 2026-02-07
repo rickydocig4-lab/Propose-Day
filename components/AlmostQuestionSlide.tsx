@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, ChevronLeft } from 'lucide-react';
-import { KittyIllustration } from './KittyIllustration.tsx';
+import { KittyIllustration } from './KittyIllustration';
 
 interface AlmostQuestionSlideProps {
   onNext: () => void;
@@ -21,28 +20,10 @@ export const AlmostQuestionSlide: React.FC<AlmostQuestionSlideProps> = ({ onNext
 
   return (
     <div className="h-full w-full bg-[#fdf2f2] flex flex-col items-center justify-center relative p-8">
-      
-      {/* Decorative Elements */}
-      <motion.div 
-        className="absolute -top-10 -left-10 w-48 h-48 opacity-30 pointer-events-none"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      >
-        <KittyIllustration type="peek" className="w-full h-full" />
-      </motion.div>
-
-      <motion.div 
-        className="absolute -bottom-10 -right-10 w-48 h-48 opacity-30 pointer-events-none"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      >
-        <KittyIllustration type="peek" className="w-full h-full" />
-      </motion.div>
-
       <div className="max-w-3xl text-center space-y-16">
         <div className="min-h-[12rem] flex flex-col items-center justify-center">
           <AnimatePresence mode="wait">
-            {lineIndex >= 0 && (
+            {lineIndex === 0 ? (
               <motion.p
                 key="line1"
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -52,10 +33,7 @@ export const AlmostQuestionSlide: React.FC<AlmostQuestionSlideProps> = ({ onNext
               >
                 “I thought of a thousand ways to say this…”
               </motion.p>
-            )}
-          </AnimatePresence>
-          <AnimatePresence mode="wait">
-             {lineIndex >= 1 && (
+            ) : (
               <motion.p
                 key="line2"
                 initial={{ opacity: 0, y: 30 }}
@@ -89,12 +67,6 @@ export const AlmostQuestionSlide: React.FC<AlmostQuestionSlideProps> = ({ onNext
         <button onClick={onPrev} className="p-4 bg-white text-pink-300 rounded-full hover:bg-pink-50 transition-all shadow-md border border-pink-100">
           <ChevronLeft size={24} />
         </button>
-      </div>
-
-      <div className="absolute bottom-10 right-10 text-right opacity-40 hidden md:block">
-        <p className="text-lg font-handwritten text-pink-500">
-          "My heart belongs to you, always."
-        </p>
       </div>
     </div>
   );

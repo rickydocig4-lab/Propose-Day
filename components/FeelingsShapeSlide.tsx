@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Star, ChevronRight, ChevronLeft } from 'lucide-react';
-import { KittyIllustration } from './KittyIllustration.tsx';
+import { KittyIllustration } from './KittyIllustration';
 
 interface FeelingsShapeSlideProps {
   onNext: () => void;
@@ -12,8 +11,6 @@ interface FeelingsShapeSlideProps {
 export const FeelingsShapeSlide: React.FC<FeelingsShapeSlideProps> = ({ onNext, onPrev }) => {
   return (
     <div className="h-full w-full flex flex-col items-center justify-center bg-slate-950 relative overflow-hidden">
-      
-      {/* Star Field */}
       <div className="absolute inset-0">
         {[...Array(80)].map((_, i) => (
           <motion.div
@@ -33,11 +30,8 @@ export const FeelingsShapeSlide: React.FC<FeelingsShapeSlideProps> = ({ onNext, 
         ))}
       </div>
 
-      {/* Ambient Glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-pink-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-      {/* Moon and Kitty */}
       <motion.div 
         className="relative z-10 mb-12"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -53,11 +47,9 @@ export const FeelingsShapeSlide: React.FC<FeelingsShapeSlideProps> = ({ onNext, 
                <KittyIllustration type="sleep" className="w-44 h-44 shadow-2xl" />
              </motion.div>
           </div>
-          <div className="w-56 h-56 bg-yellow-100/50 rounded-full blur-xl"></div>
         </div>
       </motion.div>
 
-      {/* Text Container */}
       <div className="text-center z-20 px-6 max-w-2xl">
         <motion.p 
           initial={{ opacity: 0, y: 10 }}

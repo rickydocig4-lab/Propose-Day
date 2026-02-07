@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { HeroSlide } from './components/HeroSlide.tsx';
-import { FavoritePersonSlide } from './components/FavoritePersonSlide.tsx';
-import { FeelingsShapeSlide } from './components/FeelingsShapeSlide.tsx';
-import { AlmostQuestionSlide } from './components/AlmostQuestionSlide.tsx';
-import { ProposalSlide } from './components/ProposalSlide.tsx';
-import { MusicControl } from './components/MusicControl.tsx';
+import { HeroSlide } from './components/HeroSlide';
+import { FavoritePersonSlide } from './components/FavoritePersonSlide';
+import { FeelingsShapeSlide } from './components/FeelingsShapeSlide';
+import { AlmostQuestionSlide } from './components/AlmostQuestionSlide';
+import { ProposalSlide } from './components/ProposalSlide';
+import { MusicControl } from './components/MusicControl';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const App: React.FC = () => {
@@ -32,7 +31,7 @@ const App: React.FC = () => {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play().catch(e => console.log("Audio playback blocked", e));
+        audioRef.current.play().catch(e => console.error("Audio playback blocked", e));
       }
       setIsPlaying(!isPlaying);
     }
@@ -51,7 +50,7 @@ const App: React.FC = () => {
   }, [currentSlide]);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-[#fff5f8] text-gray-800 selection:bg-pink-200">
+    <div className="relative h-full w-full overflow-hidden bg-[#fff5f8] text-gray-800 selection:bg-pink-200">
       <audio 
         ref={audioRef}
         loop 
@@ -66,7 +65,7 @@ const App: React.FC = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           className="h-full w-full"
         >
           {currentSlide === 0 && <HeroSlide onNext={nextSlide} />}
